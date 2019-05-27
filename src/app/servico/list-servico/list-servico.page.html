@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Relação de Serviços
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="danger">
+      <ion-icon name="add" [routerLink]="(['/tabs/addServico'])"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list *ngIf="servicos$ | async as servicos">
+    <ion-item-sliding *ngFor="let servico of servicos">
+
+      <ion-item-options side="end">
+        <ion-item-option (click)="remove(servico.key)" color="danger">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+
+      <ion-item>
+        <ion-label color="primary"> {{servico.tipo}} </ion-label>
+        <ion-text >{{servico.desc}} -</ion-text>
+        <ion-text color="danger"> - R$: {{servico.valor}}</ion-text>
+        <ion-note > Status: {{servico.status}}</ion-note>
+
+      </ion-item>
+
+      <ion-item-options side="start">
+        <ion-item-option (click)="edit(servico.key)" color="primary">
+          <ion-icon slot="icon-only" name="create"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+</ion-content>

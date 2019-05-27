@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Dados do Cliente</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <form #fc="ngForm" (ngSubmit)="onSubmit(fc)">
+    <ion-item>
+      <ion-label position="floating">Nome</ion-label>
+      <ion-input type="text" name="nome" [(ngModel)]="cliente.nome" #nome="ngModel" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">E-mail</ion-label>
+      <ion-input type="email" name="email" [(ngModel)]="cliente.email" #email="ngModel" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Senha</ion-label>
+      <ion-input type="password" name="pws" [(ngModel)]="cliente.pws" #pws="ngModel" minlength="6" required></ion-input>
+    </ion-item>
+    <ion-text color="danger" *ngIf="pws.invalid && pws.dirty">
+      <strong>Senha muito curta!</strong>
+    </ion-text>
+
+    <ion-item>
+      <ion-label position="floating">Confirma Senha</ion-label>
+      <ion-input type="password" name="conf" [(ngModel)]="conf" #c="ngModel" minlength="6" required></ion-input>
+    </ion-item>
+    <ion-text color="danger" *ngIf="pws.value != c.value">
+      <strong>Senhas diferentes!</strong>
+    </ion-text>
+
+    <ion-item lines="none"></ion-item>
+
+    <ion-item lines="none">
+      <ion-button type="submit" color="primary" [disabled]="fc.invalid || (pws.value != c.value)">Salvar</ion-button>
+      <ion-button type="reset" [routerLink]="[('/tabs/tab2')]" color="danger">Cancelar</ion-button>
+    </ion-item>
+  </form>
+</ion-content>

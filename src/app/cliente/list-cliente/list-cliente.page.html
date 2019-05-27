@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Relação de Clientes
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="danger">
+      <ion-icon name="add" [routerLink]="(['/tabs/addCliente'])"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list *ngIf="clientes$ | async as clientes">
+    <ion-item-sliding *ngFor="let cliente of clientes">
+
+      <ion-item-options side="end">
+        <ion-item-option (click)="remove(cliente.key)" color="danger">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+
+      <ion-item>
+        <ion-label> {{cliente.nome}} </ion-label>
+        <ion-text color="primary">{{cliente.email}}</ion-text>
+
+      </ion-item>
+
+      <ion-item-options side="start">
+        <ion-item-option (click)="edit(cliente.key)" color="primary">
+          <ion-icon slot="icon-only" name="create"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+</ion-content>
